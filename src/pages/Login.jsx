@@ -7,15 +7,19 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const loginHandler = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:5000/api/login', { email, password });
-      localStorage.setItem('token', response.data.token);  // Save token to local storage
-      window.location.href = '/';  // Redirect to Home page
-    } catch (error) {
-      setError(error.response.data.message || 'Error occurred');
-    }
-  };
+  e.preventDefault();
+  try {
+    const response = await axios.post(
+      'http://localhost:5000/api/v1/auth/login',
+      { email, password },
+      { withCredentials: true }
+    );
+    localStorage.setItem('token', response.data.token);  // Save token if needed
+    window.location.href = '/';  // Redirect to Home page
+  } catch (error) {
+    setError(error.response?.data?.message || 'Error occurred');
+  }
+};
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

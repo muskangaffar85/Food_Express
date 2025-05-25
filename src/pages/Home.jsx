@@ -1,11 +1,11 @@
 import React from 'react';
 import FoodSlider from '../components/FoodSlider';
-import { food_list, menu_list } from '../assets/assets'; // Import menu_list from assets
+import { food_list, menu_list } from '../assets/assets';
 import { FaMotorcycle, FaClock, FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   // Get random foods for different sections
   const featuredFoods = [...food_list].sort(() => 0.5 - Math.random()).slice(0, 8);
@@ -44,10 +44,16 @@ const Home = () => {
             Order delicious food from the best restaurants in town, delivered fast to your doorstep
           </p>
           <div className="flex justify-center gap-4">
-            <button className="bg-white text-red-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+            <button 
+              onClick={() => navigate('/menu')} 
+              className="bg-white text-red-600 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300 transform hover:scale-105"
+            >
               Order Now
             </button>
-            <button className="border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-red-600 transition duration-300 transform hover:scale-105">
+            <button 
+              onClick={() => navigate('/menu')} 
+              className="border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-red-600 transition duration-300 transform hover:scale-105"
+            >
               Browse Menu
             </button>
           </div>
@@ -104,7 +110,7 @@ const Home = () => {
               <div
                 key={index}
                 className="cursor-pointer bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300 transform hover:-translate-y-1"
-                onClick={() => navigate(`/category/${menu.menu_name}`)} // Navigate to Category Page
+                onClick={() => navigate(`/category/${menu.menu_name}`)}
               >
                 <div className="h-40 bg-red-100 flex items-center justify-center">
                   <img src={menu.menu_image} alt={menu.menu_name} className="h-full w-full object-cover" />
@@ -176,65 +182,42 @@ const Home = () => {
           <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
             Getting your favorite food has never been easier
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600 text-xl font-bold">1</div>
-              <h3 className="text-xl font-bold mb-2">Choose Your Food</h3>
-              <p className="text-gray-600">Browse hundreds of restaurants and select your favorite dishes</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-red-600 text-5xl mb-4">1</div>
+              <h3 className="font-bold mb-2">Choose Your Meal</h3>
+              <p className="text-gray-600">Browse our extensive menu and select your favorite dishes.</p>
             </div>
-            <div className="text-center">
-              <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600 text-xl font-bold">2</div>
-              <h3 className="text-xl font-bold mb-2">Secure Payment</h3>
-              <p className="text-gray-600">Pay online with your credit card or cash on delivery</p>
+            <div>
+              <div className="text-red-600 text-5xl mb-4">2</div>
+              <h3 className="font-bold mb-2">Fast Delivery</h3>
+              <p className="text-gray-600">Our delivery partners bring your food to you hot and fresh.</p>
             </div>
-            <div className="text-center">
-              <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600 text-xl font-bold">3</div>
-              <h3 className="text-xl font-bold mb-2">Fast Delivery</h3>
-              <p className="text-gray-600">Track your order in real-time until it arrives at your door</p>
+            <div>
+              <div className="text-red-600 text-5xl mb-4">3</div>
+              <h3 className="font-bold mb-2">Enjoy Your Meal</h3>
+              <p className="text-gray-600">Relax and savor every bite of your delicious food.</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Testimonials */}
-      <div className="py-16 bg-gray-50">
+      <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-4">What Our Customers Say</h2>
-          <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-            Don't just take our word for it - hear from our satisfied customers
-          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="flex items-center mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <FaStar key={i} className={i < testimonial.rating ? "text-yellow-400" : "text-gray-300"} />
+            {testimonials.map(({ id, name, comment, rating }) => (
+              <div key={id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+                <p className="italic mb-4">"{comment}"</p>
+                <div className="flex items-center mb-2">
+                  {Array.from({ length: rating }).map((_, idx) => (
+                    <FaStar key={idx} className="text-yellow-400 mr-1" />
                   ))}
                 </div>
-                <p className="text-gray-700 mb-4 italic">"{testimonial.comment}"</p>
-                <p className="font-bold">{testimonial.name}</p>
+                <h4 className="font-bold">{name}</h4>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="py-20 bg-red-600 text-white text-center">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to order your favorite food?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Download our app now and get exclusive discounts on your first order!
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center">
-              <span className="mr-2">Download on the</span>
-              <span className="text-xl">App Store</span>
-            </button>
-            <button className="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition duration-300 flex items-center justify-center">
-              <span className="mr-2">Get it on</span>
-              <span className="text-xl">Google Play</span>
-            </button>
           </div>
         </div>
       </div>

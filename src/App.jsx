@@ -9,6 +9,9 @@ import Menu from './pages/Menu';
 import About from './pages/About';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Help from './pages/Help';
+import Profile from './pages/Profile';
+import Orders from './pages/Orders';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import './index.css';
@@ -27,8 +30,11 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
+          <Route path="/help" element={<Help />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/checkout" element={<Checkout />} />
+            <Route path="/profile" element={<Profile />} /> 
         
         </Routes>
       </main>
